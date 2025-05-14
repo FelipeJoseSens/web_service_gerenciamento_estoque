@@ -1,0 +1,19 @@
+{
+    "openapi": "3.0.0",
+    "components": {
+        "schemas": {
+            "FornecedorRequest": {
+                "required": [
+                    "nome"
+                ],
+                "properties": {
+                    "nome": {
+                        "description": "Nome do fornecedor",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

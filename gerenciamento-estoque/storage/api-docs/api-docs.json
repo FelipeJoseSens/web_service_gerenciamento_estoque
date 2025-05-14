@@ -1,0 +1,738 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Gerenciamento de Estoque",
+        "description": "API para controle de produtos, categorias, fornecedores e movimentações",
+        "contact": {
+            "email": "suporte@empresa.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Servidor Local"
+        }
+    ],
+    "paths": {
+        "/categorias": {
+            "get": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Listar todas as categorias",
+                "operationId": "66f747250d1c2a1a99b78b5ffc76ad86",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Categoria"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Criar nova categoria",
+                "operationId": "createCategoria",
+                "requestBody": {
+                    "description": "Dados da categoria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoriaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoria criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categorias/{id}": {
+            "get": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Exibir categoria específica",
+                "operationId": "getCategoriaById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Atualizar categoria",
+                "operationId": "updateCategoria",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados atualizados da categoria",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoriaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria atualizada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categorias"
+                ],
+                "summary": "Excluir categoria",
+                "operationId": "deleteCategoria",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria excluída com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria deletada com sucesso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            }
+        },
+        "/fornecedores": {
+            "get": {
+                "tags": [
+                    "Fornecedores"
+                ],
+                "summary": "Listar todos os fornecedores",
+                "operationId": "4f9f7cd190b6a0c9852d658e3123984b",
+                "responses": {
+                    "200": {
+                        "description": "Lista de fornecedores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Fornecedor"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Fornecedores"
+                ],
+                "summary": "Criar um novo fornecedor",
+                "operationId": "7c0a75f3bcd80c4d63d7d6904fb94c52",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FornecedorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Fornecedor criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/fornecedores/test": {
+            "post": {
+                "tags": [
+                    "Fornecedores"
+                ],
+                "summary": "Test FornecedorRequest",
+                "operationId": "9e2db82bb887449527c48aa9a41410a8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do fornecedor",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/fornecedores/test-inline": {
+            "post": {
+                "tags": [
+                    "Fornecedores"
+                ],
+                "summary": "Test inline schema",
+                "operationId": "ddbc5c603f9b2d34927484807a85f1a1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do fornecedor",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/fornecedores/test-qualified": {
+            "post": {
+                "tags": [
+                    "Fornecedores"
+                ],
+                "summary": "Test fully qualified reference",
+                "operationId": "416ad22c3caeb9367744482f8426fdba",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "App\\\\Schemas\\\\FornecedorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/movimentacoes": {
+            "get": {
+                "tags": [
+                    "Movimentações"
+                ],
+                "summary": "Listar todas as movimentações",
+                "operationId": "7898d1f76f1d7311c96a1a9a2a27137a",
+                "responses": {
+                    "200": {
+                        "description": "Lista de movimentações",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Movimentacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Movimentações"
+                ],
+                "summary": "Registrar nova movimentação",
+                "operationId": "5253abf5d2c9797172f3cb627fcebb35",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovimentacaoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Movimentação registrada"
+                    }
+                }
+            }
+        },
+        "/movimentacoes/inline": {
+            "get": {
+                "tags": [
+                    "Movimentações"
+                ],
+                "summary": "Test inline Movimentacao schema",
+                "operationId": "cb404a594b2ef609de88ee41a29cadea",
+                "responses": {
+                    "200": {
+                        "description": "Lista de movimentações",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "required": [
+                                            "id",
+                                            "produto_id",
+                                            "quantidade",
+                                            "tipo"
+                                        ],
+                                        "properties": {
+                                            "id": {
+                                                "description": "ID da movimentação",
+                                                "type": "integer"
+                                            },
+                                            "produto_id": {
+                                                "description": "ID do produto relacionado",
+                                                "type": "integer"
+                                            },
+                                            "quantidade": {
+                                                "description": "Quantidade movimentada",
+                                                "type": "integer"
+                                            },
+                                            "tipo": {
+                                                "description": "Tipo de movimentação (entrada ou saída)",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movimentacoes/inline-request": {
+            "post": {
+                "tags": [
+                    "Movimentações"
+                ],
+                "summary": "Test inline MovimentacaoRequest schema",
+                "operationId": "8aa2824b216d4bb2df2c736ee2f132d8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "produto_id",
+                                    "quantidade",
+                                    "tipo"
+                                ],
+                                "properties": {
+                                    "produto_id": {
+                                        "description": "ID do produto relacionado",
+                                        "type": "integer"
+                                    },
+                                    "quantidade": {
+                                        "description": "Quantidade movimentada",
+                                        "type": "integer"
+                                    },
+                                    "tipo": {
+                                        "description": "Tipo de movimentação (entrada ou saída)",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Movimentação registrada"
+                    }
+                }
+            }
+        },
+        "/produtos": {
+            "get": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Listar todos os produtos",
+                "operationId": "a28d49d6336a249ac3bf0fdb3deb516f",
+                "responses": {
+                    "200": {
+                        "description": "Lista de produtos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/test": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Test endpoint",
+                "operationId": "2cf1648f26e6c36635ef5a3b5321fcff",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TestSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CategoriaRequest": {
+                "required": [
+                    "nome"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Categoria"
+                    },
+                    {
+                        "properties": {
+                            "nome": {
+                                "description": "Nome da categoria",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Categoria": {
+                "properties": {
+                    "id": {
+                        "description": "------------------------------------------\n          ANOTAÇÕES GLOBAIS SWAGGER\n------------------------------------------",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nome": {
+                        "type": "string",
+                        "example": "Eletrônicos"
+                    },
+                    "descricao": {
+                        "type": "string",
+                        "example": "Descrição da categoria",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "FornecedorRequest": {
+                "required": [
+                    "nome"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Categoria"
+                    },
+                    {
+                        "properties": {
+                            "nome": {
+                                "description": "Nome do fornecedor",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Produto": {
+                "required": [
+                    "id",
+                    "nome",
+                    "preco",
+                    "estoque",
+                    "fornecedor_id",
+                    "categoria_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID do produto",
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "description": "Nome do produto",
+                        "type": "string"
+                    },
+                    "preco": {
+                        "description": "Preço do produto",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "estoque": {
+                        "description": "Quantidade em estoque",
+                        "type": "integer"
+                    },
+                    "fornecedor_id": {
+                        "description": "ID do fornecedor",
+                        "type": "integer"
+                    },
+                    "categoria_id": {
+                        "description": "ID da categoria",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "TestSchema": {
+                "required": [
+                    "field"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Categoria"
+                    },
+                    {
+                        "properties": {
+                            "field": {
+                                "description": "A test field",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Fornecedor": {
+                "required": [
+                    "id",
+                    "nome"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID do fornecedor",
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "description": "Nome do fornecedor",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Data de criação",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Data de atualização",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Movimentacao": {
+                "required": [
+                    "id",
+                    "produto_id",
+                    "quantidade",
+                    "tipo"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID da movimentação",
+                        "type": "integer"
+                    },
+                    "produto_id": {
+                        "description": "ID do produto relacionado",
+                        "type": "integer"
+                    },
+                    "quantidade": {
+                        "description": "Quantidade movimentada",
+                        "type": "integer"
+                    },
+                    "tipo": {
+                        "description": "Tipo de movimentação (entrada ou saída)",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Data de criação",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Data de atualização",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "MovimentacaoRequest": {
+                "required": [
+                    "produto_id",
+                    "quantidade",
+                    "tipo"
+                ],
+                "properties": {
+                    "produto_id": {
+                        "description": "ID do produto relacionado",
+                        "type": "integer"
+                    },
+                    "quantidade": {
+                        "description": "Quantidade movimentada",
+                        "type": "integer"
+                    },
+                    "tipo": {
+                        "description": "Tipo de movimentação (entrada ou saída)",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categorias",
+            "description": "Operações com categorias"
+        },
+        {
+            "name": "Fornecedores",
+            "description": "Operações com fornecedores"
+        },
+        {
+            "name": "Produtos",
+            "description": "Operações com produtos"
+        },
+        {
+            "name": "Movimentações",
+            "description": "Operações com movimentações"
+        },
+        {
+            "name": "Test",
+            "description": "Test"
+        }
+    ]
+}

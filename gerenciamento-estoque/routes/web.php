@@ -1,3 +1,6 @@
 <?php
 
-// Arquivo web.php vazio para evitar erros.
+// routes/web.php
+Route::get('/', function () {
+    return 'Servidor Laravel está funcionando! 🚀';
+});
